@@ -5,21 +5,21 @@ Table of Contents
 =================
 
 .. toctree::
-    :maxdepth: 2
-    :hidden:
+    :maxdepth: 3
 
     self
+
+.. toctree::
+    :caption: API Reference
+    :maxdepth: 3
+
+    api
 
 .. toctree::
     :caption: Examples
 
     examples
 
-.. toctree::
-    :caption: API Reference
-    :maxdepth: 4
-
-    api
 
 
 Indices and tables

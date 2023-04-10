@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 """
-`micropython_mc3479`
+`mc3479`
 ================================================================================
 
 MC3479 Accelerometer MicroPython Driver
@@ -14,7 +14,7 @@ MC3479 Accelerometer MicroPython Driver
 """
 
 from micropython import const
-from i2c_helpers import CBits, RegisterStruct
+from  micropython_mc3479.i2c_helpers import CBits, RegisterStruct
 
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/jposada202020/MicroPython_MC3479.git"
