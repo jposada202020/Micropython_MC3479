@@ -5,7 +5,7 @@ Table of Contents
 =================
 
 .. toctree::
-    :maxdepth: 4
+    :maxdepth: 2
     :hidden:
 
     self
@@ -17,7 +17,7 @@ Table of Contents
 
 .. toctree::
     :caption: API Reference
-    :maxdepth: 3
+    :maxdepth: 4
 
     api
 
