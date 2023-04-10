@@ -37,11 +37,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 """
-
+# pylint: disable=too-many-arguments
 try:
     import struct
 except ImportError:
     import ustruct as struct
+
 
 class CBits:
     """
@@ -105,7 +106,7 @@ class RegisterStruct:
     Register Struct
     """
 
-    def __init__(self, register_address: int, form: str, lenght=1) -> None:
+    def __init__(self, register_address: int, form: str) -> None:
         self.format = form
         self.register = register_address
         self.lenght = struct.calcsize(form)

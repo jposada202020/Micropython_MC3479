@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 """
-`mc3479`
+`micropython_mc3479`
 ================================================================================
 
 MC3479 Accelerometer MicroPython Driver
@@ -13,7 +13,6 @@ MC3479 Accelerometer MicroPython Driver
 
 """
 
-import time
 from micropython import const
 from i2c_helpers import CBits, RegisterStruct
 
@@ -68,6 +67,7 @@ BANDWIDTH_1000 = const(0x17)  # 1000 Hz
 # pylint: disable= invalid-name, too-many-instance-attributes, missing-function-docstring
 # pylint: disable=too-few-public-methods
 
+
 class MC3479:
     """Driver for the MC3479 Sensor connected over I2C.
 
@@ -78,15 +78,15 @@ class MC3479:
 
     **Quickstart: Importing and using the device**
 
-    Here is an example of using the :class:`MC3479` class.
+    Here is an example of using the :class:`micropython_mc3479.MC3479` class.
     First you will need to import the libraries to use the sensor
 
     .. code-block:: python
 
         from machine import Pin, I2C
-        import mc3479 as MC3479
+        import micropython_mc3479 as MC3479
 
-    Once this is done you can define your `board.I2C` object and define your sensor object
+    Once this is done you can define your `machine.I2C` object and define your sensor object
 
     .. code-block:: python
 
@@ -134,7 +134,7 @@ class MC3479:
         self._mode = NORMAL
 
     @property
-    def acceleration(self) -> Tuple[int, int, int]:
+    def acceleration(self):
         """
         The device has the ability to read all sampled readings
         in a continuous sampling fashion. The device always updates
@@ -190,7 +190,7 @@ class MC3479:
         return self._mode
 
     @sensor_mode.setter
-    def sensor_mode(self, value: int) -> NoReturn:
+    def sensor_mode(self, value: int):
         self._mode = value
 
     @property
@@ -228,7 +228,7 @@ class MC3479:
         return self._acc_range
 
     @acceleration_range.setter
-    def acceleration_range(self, value: int) -> NoReturn:
+    def acceleration_range(self, value: int):
         self._mode = STANDBY
         self._acc_range = value
         self._mode = NORMAL
@@ -259,7 +259,7 @@ class MC3479:
         return self._acc_lpf_en
 
     @lpf_enabled.setter
-    def lpf_enabled(self, value: int) -> NoReturn:
+    def lpf_enabled(self, value: int):
         self._mode = STANDBY
         self._acc_lpf_en = value
         self._mode = NORMAL
@@ -296,7 +296,7 @@ class MC3479:
         return self._acc_lpf_setting
 
     @lpf_setting.setter
-    def lpf_setting(self, value: int) -> NoReturn:
+    def lpf_setting(self, value: int):
         self._mode = STANDBY
         self._acc_lpf_setting = value
         self._mode = NORMAL
@@ -340,7 +340,7 @@ class MC3479:
         return self._data_rate
 
     @acceleration_output_data_rate.setter
-    def acceleration_output_data_rate(self, value: int) -> NoReturn:
+    def acceleration_output_data_rate(self, value: int):
         self._mode = STANDBY
         self._data_rate = value
         self._mode = NORMAL
