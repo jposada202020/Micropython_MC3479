@@ -181,7 +181,7 @@ object_description_options = [
 ]
 
 # Set link name generated in the top bar.
-html_title = "MicroPython SI7021"
+html_title = "MicroPython MC3479"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
