@@ -5,7 +5,14 @@ Introduction
 .. image:: https://readthedocs.org/projects/micropython-mc3479/badge/?version=latest
     :target: https://micropython-mc3479.readthedocs.io/
     :alt: Documentation Status
+    
+.. image:: https://img.shields.io/pypi/v/micropython-mc3479.svg
+    :alt: latest version on PyPI
+    :target: https://pypi.python.org/pypi/micropython-mc3479e
 
+.. image:: https://static.pepy.tech/personalized-badge/micropython-mc3479?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Pypi%20Downloads
+    :alt: Total PyPI downloads
+    :target: https://pepy.tech/project/cmicropython-mc3479
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
