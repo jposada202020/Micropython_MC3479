@@ -7,4 +7,3 @@
 
 .. automodule:: micropython_mc3479.i2c_helpers
     :members:
-
