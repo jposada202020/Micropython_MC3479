@@ -19,7 +19,6 @@ from micropython_mc3479.i2c_helpers import CBits, RegisterStruct
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/jposada202020/MicroPython_MC3479.git"
 
-_I2C_ADDR = const(0x4C)
 _REG_WHOAMI = const(0x98)
 _SENSOR_STATUS_REG = const(0x05)
 _MODE_REG = const(0x07)
@@ -124,7 +123,7 @@ class MC3479:
 
     acceleration_scale = {0: 16384, 1: 8192, 2: 4096, 3: 2048, 4: 2730}
 
-    def __init__(self, i2c, address: int = _I2C_ADDR):
+    def __init__(self, i2c, address: int = 0x4C):
         self._i2c = i2c
         self._address = address
 
