@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# SPDX-FileCopyrightText: 2017 Scott Shawcroft, written for Adafruit Industries
+# SPDX-FileCopyrightText: 2023 Jose D. Montoya
 #
 # SPDX-License-Identifier: MIT
 
@@ -33,13 +33,11 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
-    "sphinx.ext.todo",
     "sphinx.ext.viewcode",
     "sphinx_immaterial",
 ]
 
 autodoc_preserve_defaults = True
-
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
@@ -49,9 +47,7 @@ intersphinx_mapping = {
 autoclass_content = "both"
 templates_path = ["_templates"]
 source_suffix = ".rst"
-# The master toctree document.
 master_doc = "index"
-
 # General information about the project.
 project = "MicroPython MC3479 Library"
 creation_year = "2023"
@@ -61,7 +57,7 @@ year_duration = (
     if current_year == creation_year
     else creation_year + " - " + current_year
 )
-copyright = year_duration + " Jose D. Montoya"
+copyright = year_duration + "Jose D. Montoya"
 author = "Jose D. Montoya"
 
 # The version info for the project you're documenting, acts as replacement for
@@ -72,38 +68,33 @@ author = "Jose D. Montoya"
 version = "1.0"
 # The full version, including alpha/beta/rc tags.
 release = "1.0"
-html_baseurl = "https://micropython-mc3479.readthedocs.io/"
-language = "en"
 
+language = "en"
+autoclass_content = "both"
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", ".env", "requirements.txt"]
+exclude_patterns = [
+    "_build",
+    "Thumbs.db",
+    ".DS_Store",
+    ".env",
+    "requirements.txt",
+]
 
-# The reST default role (used for this markup: `text`) to use for all
-# documents.
-#
 default_role = "any"
-
-# If true, '()' will be appended to :func: etc. cross-reference text.
-#
 add_function_parentheses = True
-
+pygments_style = "sphinx"
+todo_include_todos = False
+todo_emit_warnings = False
+napoleon_numpy_docstring = False
+html_baseurl = "https://micropython-mc3479.readthedocs.io/"
 rst_prolog = """
 .. role:: python(code)
    :language: python
    :class: highlight
 .. default-literal-role:: python
 """
-
-todo_include_todos = False
-todo_emit_warnings = False
-napoleon_numpy_docstring = False
-
-# -- Options for HTML output ----------------------------------------------
-
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
 html_theme = "sphinx_immaterial"
 
 html_theme_options = {
@@ -152,6 +143,10 @@ html_theme_options = {
         },
     ],
 }
+html_favicon = "_static/favicon.ico"
+
+# Output file base name for HTML help builder.
+htmlhelp_basename = "MicroPython_Lsm6dsox_Librarydoc"
 
 sphinx_immaterial_custom_admonitions = [
     {
@@ -188,7 +183,6 @@ sphinx_immaterial_custom_admonitions = [
         "override": True,
     },
 ]
-
 python_type_aliases = {
     "DigitalInOut": "digitalio.DigitalInOut",
 }
@@ -209,15 +203,6 @@ html_static_path = ["_static"]
 # or fully qualified paths (eg. https://...)
 html_css_files = ["extra_css.css"]
 
-# The name of an image file (relative to this directory) to use as a favicon of
-# the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
-# pixels large.
-#
-html_favicon = "_static/favicon.ico"
-
-html_logo = "_static/Logo.png"
-# Output file base name for HTML help builder.
-htmlhelp_basename = "MicroPython_MC3479_Librarydoc"
 
 # -- Options for LaTeX output ---------------------------------------------
 
