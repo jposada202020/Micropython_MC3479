@@ -16,6 +16,11 @@ MC3479 Accelerometer MicroPython Driver
 from micropython import const
 from micropython_mc3479.i2c_helpers import CBits, RegisterStruct
 
+try:
+    from typing import Tuple
+except ImportError:
+    pass
+
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/jposada202020/MicroPython_MC3479.git"
 
@@ -123,7 +128,7 @@ class MC3479:
 
     acceleration_scale = {0: 16384, 1: 8192, 2: 4096, 3: 2048, 4: 2730}
 
-    def __init__(self, i2c, address: int = 0x4C):
+    def __init__(self, i2c, address: int = 0x4C) -> None:
         self._i2c = i2c
         self._address = address
 
@@ -133,7 +138,7 @@ class MC3479:
         self._mode = NORMAL
 
     @property
-    def acceleration(self):
+    def acceleration(self) -> Tuple[float, float, float]:
         """
         The device has the ability to read all sampled readings
         in a continuous sampling fashion. The device always updates
@@ -186,14 +191,15 @@ class MC3479:
 
 
         """
-        return self._mode
+        values = ("STANDBY", "NORMAL")
+        return values[self._mode]
 
     @sensor_mode.setter
-    def sensor_mode(self, value: int):
+    def sensor_mode(self, value: int) -> None:
         self._mode = value
 
     @property
-    def acceleration_range(self) -> int:
+    def acceleration_range(self) -> str:
         """
         The range and scale control register sets the resolution, range,
         and filtering options for the accelerometer. All values are in
@@ -224,16 +230,23 @@ class MC3479:
             mc3479.acceleration_range = MC3479.ACCEL_RANGE_12G
 
         """
-        return self._acc_range
+        values = (
+            "ACCEL_RANGE_2G",
+            "ACCEL_RANGE_4G",
+            "ACCEL_RANGE_8G",
+            "ACCEL_RANGE_16G",
+            "ACCEL_RANGE_12G",
+        )
+        return values[self._acc_range]
 
     @acceleration_range.setter
-    def acceleration_range(self, value: int):
+    def acceleration_range(self, value: int) -> None:
         self._mode = STANDBY
         self._acc_range = value
         self._mode = NORMAL
 
     @property
-    def lpf_enabled(self) -> int:
+    def lpf_enabled(self) -> str:
         """
         Low Power Filter Enabler
 
@@ -255,16 +268,17 @@ class MC3479:
             mc3479.lpf_enabled = MC3479.LPF_ENABLE
 
         """
-        return self._acc_lpf_en
+        values = ("LPF_DISABLE", "LPF_ENABLE")
+        return values[self._acc_lpf_en]
 
     @lpf_enabled.setter
-    def lpf_enabled(self, value: int):
+    def lpf_enabled(self, value: int) -> None:
         self._mode = STANDBY
         self._acc_lpf_en = value
         self._mode = NORMAL
 
     @property
-    def lpf_setting(self) -> int:
+    def lpf_setting(self) -> str:
         """
         Selects the Bandwidth for the Low Power Filter. Depends on the selection
         of the ODR/IDR
@@ -292,16 +306,17 @@ class MC3479:
             mc3479.lpf_setting = MC3479.BANDWIDTH_5
 
         """
-        return self._acc_lpf_setting
+        values = ("BANDWIDTH_1", "BANDWIDTH_2", "BANDWIDTH_3", "BANDWIDTH_5")
+        return values[self._acc_lpf_setting]
 
     @lpf_setting.setter
-    def lpf_setting(self, value: int):
+    def lpf_setting(self, value: int) -> None:
         self._mode = STANDBY
         self._acc_lpf_setting = value
         self._mode = NORMAL
 
     @property
-    def acceleration_output_data_rate(self) -> int:
+    def acceleration_output_data_rate(self) -> str:
         """
         Define the output data rate in Hz
         The output data rate is dependent of the power mode setting for the sensor
@@ -336,10 +351,20 @@ class MC3479:
             mc3479.acceleration_output_data_rate = MC3479.BANDWIDTH_500
 
         """
-        return self._data_rate
+        values = (
+            "BANDWIDTH_25",
+            "BANDWIDTH_50",
+            "BANDWIDTH_62_5",
+            "BANDWIDTH_100",
+            "BANDWIDTH_125",
+            "BANDWIDTH_250",
+            "BANDWIDTH_500",
+            "BANDWIDTH_1000",
+        )
+        return values[self._data_rate]
 
     @acceleration_output_data_rate.setter
-    def acceleration_output_data_rate(self, value: int):
+    def acceleration_output_data_rate(self, value: int) -> None:
         self._mode = STANDBY
         self._data_rate = value
         self._mode = NORMAL
