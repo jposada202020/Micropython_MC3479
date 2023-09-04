@@ -11,5 +11,6 @@ mc3479 = MC3479.MC3479(i2c)
 
 while True:
     accx, accy, accz = mc3479.acceleration
-    print("x:{:.2f}m/s^2, y:{:.2f}m/s^2, z{:.2f}m.s^2".format(accx, accy, accz))
+    print(f"x:{accx:.2f}m/s^2, y:{accy:.2f}m/s^2, z{accz:.2f}m.s^2")
+    print()
     time.sleep(0.5)

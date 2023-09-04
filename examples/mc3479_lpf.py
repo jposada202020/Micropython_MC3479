@@ -14,6 +14,6 @@ while True:
         print("Current Low Pass Filter Setting: ", mc3479.lpf_setting)
         for _ in range(10):
             accx, accy, accz = mc3479.acceleration
-            print("x:{:.2f}m/s^2, y:{:.2f}m/s^2, z{:.2f}m.s^2".format(accx, accy, accz))
+            print(f"x:{accx:.2f}m/s^2, y:{accy:.2f}m/s^2, z{accz:.2f}m.s^2")
             time.sleep(0.5)
         mc3479.lpf_setting = lpf
