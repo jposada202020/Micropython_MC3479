@@ -48,7 +48,13 @@ ACCEL_RANGE_4G = const(0b001)
 ACCEL_RANGE_8G = const(0b010)
 ACCEL_RANGE_16G = const(0b011)
 ACCEL_RANGE_12G = const(0b100)
-accel_range_values = (ACCEL_RANGE_2G, ACCEL_RANGE_4G, ACCEL_RANGE_8G, ACCEL_RANGE_16G)
+accel_range_values = (
+    ACCEL_RANGE_2G,
+    ACCEL_RANGE_4G,
+    ACCEL_RANGE_8G,
+    ACCEL_RANGE_16G,
+    ACCEL_RANGE_12G,
+)
 
 LPF_ENABLE = const(1)
 LPF_DISABLE = const(0)
@@ -134,7 +140,13 @@ class MC3479:
     _acc_lpf_en = CBits(1, _ACC_RANGE, 3)
     _acc_lpf_setting = CBits(3, _ACC_RANGE, 0)
 
-    acceleration_scale = {0: 16384, 1: 8192, 2: 4096, 3: 2048, 4: 2730}
+    acceleration_scale = {
+        "ACCEL_RANGE_2G": 16384,
+        "ACCEL_RANGE_4G": 8192,
+        "ACCEL_RANGE_8G": 4096,
+        "ACCEL_RANGE_16G": 2048,
+        "ACCEL_RANGE_12G": 2730,
+    }
 
     def __init__(self, i2c, address: int = 0x4C) -> None:
         self._i2c = i2c
@@ -162,10 +174,11 @@ class MC3479:
         x = (self._acc_data_x_msb * 256 + self._acc_data_x_lsb) / factor
         y = (self._acc_data_y_msb * 256 + self._acc_data_y_lsb) / factor
         z = (self._acc_data_z_msb * 256 + self._acc_data_z_lsb) / factor
+
         return x, y, z
 
     @property
-    def sensor_mode(self) -> int:
+    def sensor_mode(self) -> str:
         """
         Standby
         ********
@@ -304,9 +317,9 @@ class MC3479:
         +--------------------------------+------------------------------------+
         | :py:const:`MC3479.BANDWIDTH_2` | :py:const:`0b010` Fc = IDR / 6     |
         +--------------------------------+------------------------------------+
-        | :py:const:`MC3479.BANDWIDTH_3` | :py:const:`0b010` Fc = IDR / 12    |
+        | :py:const:`MC3479.BANDWIDTH_3` | :py:const:`0b011` Fc = IDR / 12    |
         +--------------------------------+------------------------------------+
-        | :py:const:`MC3479.BANDWIDTH_5` | :py:const:`0b010` Fc = IDR / 16    |
+        | :py:const:`MC3479.BANDWIDTH_5` | :py:const:`0b101` Fc = IDR / 16    |
         +--------------------------------+------------------------------------+
 
         Example
@@ -320,7 +333,12 @@ class MC3479:
             mc3479.lpf_setting = MC3479.BANDWIDTH_5
 
         """
-        values = ("BANDWIDTH_1", "BANDWIDTH_2", "BANDWIDTH_3", "BANDWIDTH_5")
+        values = {
+            1: "BANDWIDTH_1",
+            2: "BANDWIDTH_2",
+            3: "BANDWIDTH_3",
+            5: "BANDWIDTH_5",
+        }
         return values[self._acc_lpf_setting]
 
     @lpf_setting.setter
@@ -367,16 +385,16 @@ class MC3479:
             mc3479.acceleration_output_data_rate = MC3479.BANDWIDTH_500
 
         """
-        values = (
-            "BANDWIDTH_25",
-            "BANDWIDTH_50",
-            "BANDWIDTH_62_5",
-            "BANDWIDTH_100",
-            "BANDWIDTH_125",
-            "BANDWIDTH_250",
-            "BANDWIDTH_500",
-            "BANDWIDTH_1000",
-        )
+        values = {
+            0x10: "BANDWIDTH_25",
+            0x11: "BANDWIDTH_50",
+            0x12: "BANDWIDTH_62_5",
+            0x13: "BANDWIDTH_100",
+            0x14: "BANDWIDTH_125",
+            0x15: "BANDWIDTH_250",
+            0x16: "BANDWIDTH_500",
+            0x17: "BANDWIDTH_1000",
+        }
         return values[self._data_rate]
 
     @acceleration_output_data_rate.setter
