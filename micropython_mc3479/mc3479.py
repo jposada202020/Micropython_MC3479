@@ -8,7 +8,7 @@
 MC3479 Accelerometer MicroPython Driver
 
 
-* Author(s): Jose D. Montoya
+* Author: Jose D. Montoya
 
 
 """
@@ -48,6 +48,7 @@ ACCEL_RANGE_4G = const(0b001)
 ACCEL_RANGE_8G = const(0b010)
 ACCEL_RANGE_16G = const(0b011)
 ACCEL_RANGE_12G = const(0b100)
+accel_range_values = (ACCEL_RANGE_2G, ACCEL_RANGE_4G, ACCEL_RANGE_8G, ACCEL_RANGE_16G)
 
 LPF_ENABLE = const(1)
 LPF_DISABLE = const(0)
@@ -56,6 +57,7 @@ BANDWIDTH_1 = const(0b001)
 BANDWIDTH_2 = const(0b010)
 BANDWIDTH_3 = const(0b011)
 BANDWIDTH_5 = const(0b101)
+lpf_setting_values = (BANDWIDTH_1, BANDWIDTH_2, BANDWIDTH_3, BANDWIDTH_5)
 
 # Acceleration Output Rate HZ
 BANDWIDTH_25 = const(0x10)  # 25 Hz
@@ -66,10 +68,16 @@ BANDWIDTH_125 = const(0x14)  # 125 Hz
 BANDWIDTH_250 = const(0x15)  # 250 Hz
 BANDWIDTH_500 = const(0x16)  # 500 Hz
 BANDWIDTH_1000 = const(0x17)  # 1000 Hz
-
-
-# pylint: disable= invalid-name, too-many-instance-attributes, missing-function-docstring
-# pylint: disable=too-few-public-methods
+acceleration_output_data_rate_values = (
+    BANDWIDTH_25,
+    BANDWIDTH_50,
+    BANDWIDTH_62_5,
+    BANDWIDTH_100,
+    BANDWIDTH_125,
+    BANDWIDTH_250,
+    BANDWIDTH_500,
+    BANDWIDTH_1000,
+)
 
 
 class MC3479:
@@ -133,7 +141,7 @@ class MC3479:
         self._address = address
 
         if self._device_id != 0xA4:
-            raise RuntimeError("Failed to find MC3479")
+            raise RuntimeError("Failed to find the MC3479 sensor")
 
         self._mode = NORMAL
 
@@ -145,7 +153,7 @@ class MC3479:
         the XOUT, YOUT, and ZOUT registers at the chosen output data rate
 
         X, Y, and Z-axis accelerometer measurements are in 16-bit, signed
-        2’s complement format. Register addresses 0x0D to 0x12 hold the
+        2's complement format. Register addresses 0x0D to 0x12 hold the
         latest sampled data from the X, Y, and Z accelerometers.
         """
 
@@ -196,6 +204,8 @@ class MC3479:
 
     @sensor_mode.setter
     def sensor_mode(self, value: int) -> None:
+        if value not in (STANDBY, NORMAL):
+            raise ValueError("Invalid Sensor Mode")
         self._mode = value
 
     @property
@@ -203,8 +213,8 @@ class MC3479:
         """
         The range and scale control register sets the resolution, range,
         and filtering options for the accelerometer. All values are in
-        sign-extended 2’s complement format. Values are reported in
-        registers 0x0D – 0x12 (the hardware formats the output)
+        sign-extended 2's complement format. Values are reported in
+        registers 0x0D - 0x12 (the hardware formats the output)
 
         +----------------------------------------+-------------------------+
         | Mode                                   | Value                   |
@@ -241,6 +251,8 @@ class MC3479:
 
     @acceleration_range.setter
     def acceleration_range(self, value: int) -> None:
+        if value not in accel_range_values:
+            raise ValueError("Invalid Acceleration Range")
         self._mode = STANDBY
         self._acc_range = value
         self._mode = NORMAL
@@ -273,6 +285,8 @@ class MC3479:
 
     @lpf_enabled.setter
     def lpf_enabled(self, value: int) -> None:
+        if value not in (LPF_ENABLE, LPF_DISABLE):
+            raise ValueError("Invalid Low Pass Filter Setting")
         self._mode = STANDBY
         self._acc_lpf_en = value
         self._mode = NORMAL
@@ -311,6 +325,8 @@ class MC3479:
 
     @lpf_setting.setter
     def lpf_setting(self, value: int) -> None:
+        if value not in lpf_setting_values:
+            raise ValueError("Invalid Low Pass Filter Setting")
         self._mode = STANDBY
         self._acc_lpf_setting = value
         self._mode = NORMAL
@@ -365,6 +381,8 @@ class MC3479:
 
     @acceleration_output_data_rate.setter
     def acceleration_output_data_rate(self, value: int) -> None:
+        if value not in acceleration_output_data_rate_values:
+            raise ValueError("Invalid Output Data Rate")
         self._mode = STANDBY
         self._data_rate = value
         self._mode = NORMAL
