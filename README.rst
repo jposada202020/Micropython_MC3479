@@ -1,26 +1,11 @@
-Introduction
-============
+⛔️ DEPRECATED
+===============
 
+This repository is no longer supported, please consider using alternatives.
 
-.. image:: https://img.shields.io/badge/micropython-Ok-purple.svg
-    :target: https://micropython.org
-    :alt: micropython
-
-.. image:: https://readthedocs.org/projects/micropython-mc3479/badge/?version=latest
-    :target: https://micropython-mc3479.readthedocs.io/
-    :alt: Documentation Status
-
-.. image:: https://img.shields.io/pypi/v/micropython-mc3479.svg
-    :alt: latest version on PyPI
-    :target: https://pypi.python.org/pypi/micropython-mc3479
-
-.. image:: https://static.pepy.tech/personalized-badge/micropython-mc3479?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Pypi%20Downloads
-    :alt: Total PyPI downloads
-    :target: https://pepy.tech/project/micropython-mc3479
-
-.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-    :target: https://github.com/psf/black
-    :alt: Code Style: Black
+.. image:: http://unmaintained.tech/badge.svg
+  :target: http://unmaintained.tech
+  :alt: No Maintenance Intended
 
 MicroPython Driver for the MC3479 Accelerometer
 
